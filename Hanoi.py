@@ -1,6 +1,6 @@
 from Disco import Disco
 from Torre import Torre
-
+color = '\033[93m'
 
 class Hanoi:
     def __init__(self):
@@ -23,12 +23,11 @@ class Hanoi:
 
     def trocar_disco_de_torre(self, source, target):
         try:
-            if not self.get_torre(target).get_pilha_de_discos() or self.get_torre(source).get_ultimo_disco() <= self.get_torre(target).get_ultimo_disco():
-                return self.get_torre(target).empilhar(
+            if self.get_torre(source).get_tamanho() != 0 or self.get_torre(source).get_ultimo_disco() <= self.get_torre(target).get_ultimo_disco():
+                self.get_torre(target).empilhar(
                     self.get_torre(source).desempilhar())
         except TypeError:
             print("")
-        return None
 
     def iniciar(self):
         while True:
@@ -51,7 +50,7 @@ class Hanoi:
         print("\n---------\n")
 
     def opcoes(self):
-        print("1 - Torre 1 para Torre 2")
+        print(color + "1 - Torre 1 para Torre 2")
         print("2 - Torre 1 para Torre 3")
         print("3 - Torre 2 para Torre 1")
         print("4 - Torre 2 para Torre 3")
@@ -65,21 +64,18 @@ class Hanoi:
 
             if opcao == 1:
                 self.trocar_disco_de_torre(1, 2)
-
             elif opcao == 2:
                 self.trocar_disco_de_torre(1, 3)
-
             elif opcao == 3:
                 self.trocar_disco_de_torre(2, 1)
-
             elif opcao == 4:
                 self.trocar_disco_de_torre(2, 3)
-
             elif opcao == 5:
                 self.trocar_disco_de_torre(3, 1)
-
             elif opcao == 6:
                 self.trocar_disco_de_torre(3, 2)
+            else:
+                print("\nOpção inválida!\n")
 
         except ValueError:
             print("\nOpção inválida!\n")
@@ -94,4 +90,5 @@ class Hanoi:
         while not self.vencer():
             self.escolher_opcao()
             self.exibir_torres()
+            
         print("Venceu!")
